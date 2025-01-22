@@ -68,15 +68,29 @@ $(document).ready(function($) {
         Smooth Scroll on anchors
     =============================================== */  
 
-    $('a[href*=#]:not([href=#])').click(function(e) {
+    $('a[href*=#]:not([href=#])').on('click touchstart', function(e) {
         if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
-            e.preventDefault(); // Prevent default explicitly
+            e.preventDefault();
             var target = $(this.hash);
             target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
             if (target.length) {
-                $('html,body').animate({
-                    scrollTop: target.offset().top -66
-                }, 1000);
+                $('html, body').animate({
+                    scrollTop: target.offset().top - 66
+                }, {
+                    duration: 1000,
+                    easing: 'swing',
+                    start: function() {
+                        // Disable wheel/touch events during animation
+                        $('html, body').on('wheel touchmove', function(e) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                        });
+                    },
+                    complete: function() {
+                        // Re-enable wheel/touch events after animation
+                        $('html, body').off('wheel touchmove');
+                    }
+                });
                 return false;
             }
         }
