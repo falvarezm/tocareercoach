@@ -321,17 +321,16 @@ $(document).ready(function($) {
         BxSlider Testimonial
     =============================================== */ 
 
-    $(".testimonials-slider").bxSlider({
+    $('.testimonials-slider').bxSlider({
+        adaptiveHeight: true,
+        controls: true,
         nextSelector: ".tc-arrows .tc-arrow-right",
         prevSelector: ".tc-arrows .tc-arrow-left",
         nextText: "<i class='fa fa-angle-right'></i>",
         prevText: "<i class='fa fa-angle-left'></i>",
-        pager: false,
-        auto: true,          // Boolean:  (true/false)
-        pause: 5000,         // Milliseconds before progressing to next slide automatically. Use a falsey value to disable.
-        mode: 'vertical',    // Choose fade, slide
-        useCSS: false        // Boolean:  (true/false)
-    });
+        pause: 5000,
+        pager: false
+      });
 
     /* ==============================================
         OWL Carousel
